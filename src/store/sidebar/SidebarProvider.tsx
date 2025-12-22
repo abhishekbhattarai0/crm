@@ -7,7 +7,16 @@ const SidebarProvider = ({ children }: {
     const [activeCategory, setActiveCategory] = useState('Dashboard')
     const [activeSubCategory, setActiveSubCategory] = useState('second')
 
-    const toggleSidebarCategory = () => {
+    // const toggleSidebarCategory = (value?:boolean) => {
+    //     setIsSidebarCategoryVisible(prev => !prev)
+    // }
+
+    const toggleSidebarCategory = (value?: boolean) => {
+        if (typeof value === "boolean") {
+            setIsSidebarCategoryVisible(value)
+            return
+        }
+
         setIsSidebarCategoryVisible(prev => !prev)
     }
 

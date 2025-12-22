@@ -2,7 +2,7 @@
 import { createContext } from 'react'
 
 interface SidebarContextProps {
-    toggleSidebarCategory: () => void;
+    toggleSidebarCategory: (value?: boolean) => void;
     isSidebarCategoryVisible: boolean;
     activeCategory: string;
     updateCategory: (value: string) => void;

@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar, { CategoryItem } from '@/components/layout/Sidebar'
 import { SidebarClose, SidebarOpen } from 'lucide-react'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
@@ -10,10 +9,18 @@ const PageLayout = () => {
         <div className='flex' >
             <Sidebar >
                 {sidebarCategories.map(((item, idx) => (
-                    <CategoryItem key={idx} icon={item.icon} title={item.title} onClick={() => {
-                        updateCategory(item.title)
-                        console.log(item.title)
-                    }} />
+                    <CategoryItem
+                        key={idx}
+                        icon={item.icon}
+                        title={item.title}
+                        onClick={() => {
+                            updateCategory(item.title)
+                            toggleSidebarCategory(true)
+                            console.log(item.title)
+                        }}
+                        isActive={item.title === activeCategory ? true : false}
+
+                    />
                 )))}
             </Sidebar>
             <div className='flex-1  text-black min-h-screen'>

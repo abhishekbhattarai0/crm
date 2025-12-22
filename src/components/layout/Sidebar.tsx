@@ -1,4 +1,4 @@
-import { ArrowBigDownIcon, ArrowBigUpIcon, LayoutGridIcon, type LucideIcon } from "lucide-react"
+import { ArrowDown, LayoutGridIcon, type LucideIcon } from "lucide-react"
 import { useSidebarContext } from "../../hooks/useSidebarContext"
 import sidebarLogo from '@/assets/download.png'
 import { useState, type ReactNode } from "react"
@@ -7,7 +7,7 @@ import { appsCategories, dashboardCategories } from "@/utils/constants"
 
 
 const Sidebar = ({ children }: { children: ReactNode }) => {
-  const { isSidebarCategoryVisible, activeCategory, updateCategory } = useSidebarContext()
+  const { isSidebarCategoryVisible, activeCategory } = useSidebarContext()
 
 
 
@@ -41,21 +41,28 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
           </div>
         </div>
 
+
+
         {/**subcategory menu */}
         {isSidebarCategoryVisible &&
-          (<div className="w-34 bg-blue-100 h-screen flex flex-col pl-2">
+          (<div className="w-40 pb-4 bg-blue-100 h-screen flex flex-col pl-2 overflow-y-auto overflow-x-hidden ">
+            {/* (<div className={cn(
+            "w-38 pb-4 bg-blue-100 h-screen flex flex-col pl-2 overflow-y-auto overflow-x-hidden transition-transform duration-100 ease-in-out",
+            isSidebarCategoryVisible ? "w-38" : "w-0"
+          )}> */}
+
 
             { /** subcategory container heading */}
-            <div>
-              <p className="mt-2 text-lg font-semibold text-gray-600 ">
+            <div className="absolute">
+              <p className="mt-2 text-lg font-semibold text-gray-600  ">
                 Company
               </p>
             </div>
 
             { /** subcategory container body */}
             <div className="mt-12 text-black">
-              <div>
-                <h1 className="text-sm font-semibold text-gray-800/90">Dashboard</h1>
+              <div >
+                <h1 className="p-2 bg-sky-200  font-bold text-gray-800/90">{activeCategory}</h1>
               </div>
               <div className="pl-4 mt-4 text-gray-800 flex flex-col gap-4 ">
                 {activeCategory === 'Dashboard' && (
@@ -70,22 +77,14 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
                     <SubCategoryItem key={idx} text={item.title} subItems={item.children ? item.children : []} />
                   ))
                 )}
-                {/* <SubCategoryItem text="Analytics" />
-                <SubCategoryItem text="Crypto" />
-                <SubCategoryItem text="Crm" />
-                <SubCategoryItem text="Project" />
-                <SubCategoryItem text="Ecommerce" />
-                <SubCategoryItem text="Helpdesk" />
-                <SubCategoryItem text="Hospital" /> */}
+
               </div>
             </div>
 
-
-
           </div>)}
-
-
       </div>
+
+
     </>
   )
 }
@@ -95,9 +94,11 @@ export default Sidebar
 interface CategoryItemProps {
   icon: LucideIcon
   title: string
+  isActive: boolean
+  onClick?: () => void
 }
 
-export const CategoryItem = ({ icon: Icon, title, ...props }: CategoryItemProps) => {
+export const CategoryItem = ({ icon: Icon, title, isActive, ...props }: CategoryItemProps) => {
   return (
     <div className={cn(
       "relative cursor-pointer group px-3 py-2 rounded-md hover:bg-sky-600 bg-sky-600/30",
@@ -106,6 +107,11 @@ export const CategoryItem = ({ icon: Icon, title, ...props }: CategoryItemProps)
     >
       <Icon className="size-5 " />
       <div className="absolute top-2  left-14 bg-sky-300 text-xs font-medium  hidden text-black px-1 rounded   group-hover:block">{title}</div>
+      {isActive && <div className="w-0 h-0
+            border-t-8 border-t-transparent
+            border-b-8 border-b-transparent
+            border-r-8 border-r-white absolute top-3 left-11">
+      </div>}
     </div>
   )
 }
@@ -123,30 +129,66 @@ export const SubCategoryItem = ({
   text: string,
   subItems?: Item[]
 }) => {
-  const { activeSubCategory, activeCategory, updateActiveSubCategory } = useSidebarContext();
+  const { updateActiveSubCategory } = useSidebarContext();
   const [isActive, setIsActive] = useState<boolean>(false)
 
   return (
-    <div onClick={() => updateActiveSubCategory(text)}>
+    <div onClick={() => {
+      updateActiveSubCategory(text)
+      // setIsActive(prev => !prev)
+
+    }}>
       <div className={cn(
-        "w-full hover:text-blue-600 cursor-pointer text-gray-700 text-sm font-medium",
+        "w-full hover:text-blue-600 cursor-pointer text-gray-700 text-sm font-semibold",
         "flex gap-2 items-center justify-between pr-2"
-      )}>
+      )}
+        onClick={() => setIsActive(prev => !prev)}
+      >
         {text}
-        <div onClick={() => setIsActive(prev => !prev)}>
-          {subItems && subItems.length > 0 &&
-            (activeSubCategory == text
-              ? <ArrowBigDownIcon size={14} />
-              : <ArrowBigUpIcon size={14} />)}
-        </div>
+        {/* <div className="transition-all duration-300">
+          {subItems && subItems.length > 0 && (isActive
+            ? <ArrowUp size={14} />
+            : <ArrowDown size={14} />)}
+        </div> */}
+
+        {subItems?.length ? (
+          <div
+            className={cn(
+              "transition-transform duration-100 ease-in-out",
+              isActive ? "rotate-180" : "rotate-0"
+            )}
+          >
+            <ArrowDown size={14} />
+          </div>
+        ) : null}
       </div>
-      {subItems && subItems.length > 0 && isActive && subItems.map((item, idx) => (
-        <div key={idx} className={cn(
-          "w-full hover:text-blue-600 cursor-pointer text-gray-700 text-sm font-medium pl-4 pt-1"
-        )}>
-          {item.title}
-        </div>
-      ))}
-    </div>
+      {/* {
+        subItems && subItems.length > 0 && isActive && subItems.map((item) => (
+          <div key={item.title} className={cn(
+            "w-full hover:text-blue-600 cursor-pointer text-gray-700 text-sm font-medium pl-4 pt-1.5"
+          )}>
+            {item.title}
+          </div>
+        ))
+      } */}
+
+      <div
+        className={cn(
+          "overflow-hidden transition-all duration-200",
+          isActive ? "max-h-40" : "max-h-0"
+        )}
+      >
+        {subItems && subItems.map(item => (
+          <div
+            key={item.title}
+            className="w-full hover:text-blue-600 cursor-pointer text-gray-700 text-sm font-medium pl-4 pt-1.5"
+          >
+            {item.title}
+          </div>
+        ))}
+      </div>
+    </div >
   )
 }
+
+
