@@ -4,30 +4,39 @@ import { sidebarCategories } from '@/utils/constants'
 import Header from './Header'
 import { Outlet } from 'react-router'
 
+
+
+
 const PageLayout = () => {
     const { toggleSidebarCategory, updateCategory, activeCategory } = useSidebarContext()
+
     return (
-        <div className='flex ' >
-            <Sidebar  >
-                {sidebarCategories.map(((item, idx) => (
+        <div className="flex h-screen">
+            {/* Sidebar: fixed width, full height */}
+            <Sidebar >
+                {sidebarCategories.map((item, idx) => (
                     <CategoryItem
-                        link={item.link}
                         key={idx}
+                        link={item.link}
                         icon={item.icon}
                         title={item.title}
                         onClick={() => {
                             updateCategory(item.title)
                             toggleSidebarCategory(true)
-                            console.log(item.title)
                         }}
-                        isActive={item.title === activeCategory ? true : false}
-
+                        isActive={item.title === activeCategory}
                     />
-                )))}
+                ))}
             </Sidebar>
-            <div className='flex-1  text-black min-h-screen'>
+
+            {/* Main content: margin-left = sidebar width */}
+            <div className="flex-1 flex flex-col  h-screen">
                 <Header />
-                <Outlet />
+
+                {/* Scrollable content */}
+                <main className="flex-1 overflow-auto p-4 bg-gray-100">
+                    <Outlet />
+                </main>
             </div>
         </div>
     )
