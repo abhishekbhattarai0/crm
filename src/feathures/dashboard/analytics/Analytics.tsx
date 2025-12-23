@@ -1,3 +1,4 @@
+import Breadcrumbs from '@/components/ui/BreadCrums';
 import InfoCard from '../components/InfoCard'
 import { analayticsCardInfo } from '@/utils/constants';
 
@@ -8,7 +9,8 @@ const Analytics = () => {
         <div className='mt-2'>
             <div className='flex justify-between px-4 py-3 '>
                 <h1 className='text-xl font-bold text-gray-800'>Analytics</h1>
-                <div className='font-doto font-bold'> BreadCrum navigation</div>
+                <div> <Breadcrumbs/></div>
+
             </div>
 
             {/* analytics card */}
