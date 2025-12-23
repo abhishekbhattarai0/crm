@@ -1,15 +1,17 @@
 import Sidebar, { CategoryItem } from '@/components/layout/Sidebar'
-import { SidebarClose, SidebarOpen } from 'lucide-react'
 import { useSidebarContext } from '@/hooks/useSidebarContext'
 import { sidebarCategories } from '@/utils/constants'
+import Header from './Header'
+import { Outlet } from 'react-router'
 
 const PageLayout = () => {
-    const { toggleSidebarCategory, isSidebarCategoryVisible, updateCategory, activeCategory } = useSidebarContext()
+    const { toggleSidebarCategory, updateCategory, activeCategory } = useSidebarContext()
     return (
-        <div className='flex' >
-            <Sidebar >
+        <div className='flex ' >
+            <Sidebar  >
                 {sidebarCategories.map(((item, idx) => (
                     <CategoryItem
+                        link={item.link}
                         key={idx}
                         icon={item.icon}
                         title={item.title}
@@ -24,10 +26,8 @@ const PageLayout = () => {
                 )))}
             </Sidebar>
             <div className='flex-1  text-black min-h-screen'>
-                <button onClick={() => toggleSidebarCategory()}>
-                    {isSidebarCategoryVisible ? <SidebarClose /> : <SidebarOpen />}
-                </button>
-                {activeCategory}
+                <Header />
+                <Outlet />
             </div>
         </div>
     )
