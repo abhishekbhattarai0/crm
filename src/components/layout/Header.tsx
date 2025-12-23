@@ -1,13 +1,17 @@
 import { useSidebarContext } from '@/hooks/useSidebarContext'
-import { GiBulb, GiHamburgerMenu } from 'react-icons/gi'
+import { GiHamburgerMenu } from 'react-icons/gi'
 import Input from '@/components/ui/Input'
 import IconComponent from '../ui/IconComponent'
 import { Sun } from 'lucide-react'
+import { cn } from '@/utils/cn'
 
-const Header = () => {
+const Header = ({ className }: { className?: string }) => {
     const { toggleSidebarCategory } = useSidebarContext()
     return (
-        <div className='w-full flex h-14  justify-between items-center border-b  border-gray-200 shadow-xs'>
+        <div className={cn(
+            'w-full flex h-14  justify-between items-center border-b  border-gray-200 shadow-xs',
+            className
+        )}>
             <div className='ml-2'>
                 {/* <div className='p-2.5 text-lg  rounded-full bg-gray-200 text-black' onClick={() => toggleSidebarCategory()}>
                 <GiHamburgerMenu fontWeight={2}/> 
