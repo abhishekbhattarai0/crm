@@ -4,7 +4,7 @@ import sidebarLogo from "@/assets/download.png";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import { appsCategories, dashboardCategories } from "@/utils/constants";
-import { Link, NavLink, } from "react-router";
+import {  NavLink, } from "react-router";
 import IconComponent from "../ui/IconComponent";
 import useScreenSize from "@/hooks/useScreenSize";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -45,13 +45,13 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
         {isSidebarCategoryVisible && (
           <div className={cn(
             "flex h-full w-40 flex-col overflow-x-hidden overflow-y-auto bg-blue-100 pb-4 ",
-            isMobile && 'fixed left-15'
+            isMobile && 'fixed left-15 z-100'
           )}>
 
 
             {/** subcategory container heading */}
 
-            <div className="absolute z-100">
+            <div className="absolute z-100 ">
               <div className="flex h-12  items-center   text-center text-lg font-semibold text-gray-600">
                 {isMobile && <IconComponent className='sm:ml-1 h-9 w-9 ml-3 mt-1 bg-gray-300/50 rounded-full' Icon={GiHamburgerMenu} onClick={() => toggleSidebarCategory()} />}
                 <p className="flex h-12 w-40 items-center pl-2  bg-sky-100 text-center text-lg font-semibold text-gray-600">
@@ -62,7 +62,7 @@ const Sidebar = ({ children }: { children: ReactNode }) => {
 
             {/** subcategory container body */}
             <div className="mt-14 text-black ">
-              <div>
+              <div >
                 <h1 className="bg-sky-200 p-2 font-bold text-gray-800/90">
                   {activeCategory}
                 </h1>
@@ -95,7 +95,7 @@ export default Sidebar;
 interface CategoryItemProps {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   title: string;
-  isActive: boolean;
+  // isActive: boolean;
   link: string;
   onClick?: () => void;
 }
@@ -103,27 +103,49 @@ interface CategoryItemProps {
 export const CategoryItem = ({
   icon: Icon,
   title,
-  isActive,
+  // isCategoryActive,
   link,
   ...props
 }: CategoryItemProps) => {
   return (
-    <Link
+    // <NavLink
+    //   to={link}
+    //   className={cn(
+    //     "group relative cursor-pointer rounded-md bg-sky-600/30 px-3 py-2 hover:bg-sky-600",
+    //     isActive && "bg-sky-800",
+    //   )}
+    //   {...props}
+    // >
+    //   <Icon className="size-5" />
+    //   <div className="absolute top-2 left-14 hidden rounded bg-sky-300 px-1 text-xs font-medium text-black group-hover:block">
+    //     {title}
+    //   </div>
+    //   {isActive && (
+    //     <div className="absolute top-3 left-11 h-0 w-0 border-t-8 border-r-8 border-b-8 border-t-transparent border-r-white border-b-transparent"></div>
+    //   )}
+    // </NavLink>
+    <NavLink
       to={link}
-      className={cn(
-        "group relative cursor-pointer rounded-md bg-sky-600/30 px-3 py-2 hover:bg-sky-600",
-        isActive && "bg-sky-800",
-      )}
+      className={({ isActive }) =>
+        cn(
+          "group relative cursor-pointer rounded-md bg-sky-600/30 px-3 py-2 hover:bg-sky-600",
+          isActive && "bg-sky-800"
+        )
+      }
       {...props}
     >
-      <Icon className="size-5" />
-      <div className="absolute top-2 left-14 hidden rounded bg-sky-300 px-1 text-xs font-medium text-black group-hover:block">
-        {title}
-      </div>
-      {isActive && (
-        <div className="absolute top-3 left-11 h-0 w-0 border-t-8 border-r-8 border-b-8 border-t-transparent border-r-white border-b-transparent"></div>
+      {({ isActive }) => (
+        <>
+          <Icon className="size-5" />
+          <div className="absolute top-2 left-14 hidden rounded bg-sky-300 px-1 text-xs font-medium text-black group-hover:block">
+            {title}
+          </div>
+          {isActive && (
+            <div className="absolute top-3 left-11 h-0 w-0 border-t-8 border-r-8 border-b-8 border-t-transparent border-r-white border-b-transparent"></div>
+          )}
+        </>
       )}
-    </Link>
+    </NavLink>
   );
 };
 

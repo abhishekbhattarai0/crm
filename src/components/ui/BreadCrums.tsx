@@ -8,8 +8,8 @@ const Breadcrumbs = () => {
         .filter(Boolean);
 
     return (
-        <nav className="mb-4" aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center text-sm text-gray-500">
+        <nav className="mb-4 " >
+            <ol className="flex flex-wrap items-center text-xs sm:text-sm text-gray-500">
                 {/* Home */}
                 {/* <li>
                     <Link

@@ -7,12 +7,13 @@ import Login from "@/feathures/auth/Login"
 import PageNotFound from "../common/PageNotFound"
 
 export const router = createBrowserRouter([
+
 {
     path:'/',
     element: <PageLayout/>,
     children: [
         {
-            path: 'index',
+            index: true,
             element: <Navigate to="/dashboard/analytics" replace />
         },
         {

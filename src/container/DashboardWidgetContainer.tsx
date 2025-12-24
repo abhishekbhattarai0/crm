@@ -1,6 +1,7 @@
 import Button from '@/components/ui/Button';
+import Select from '@/components/ui/Select';
 import { Phone } from 'lucide-react';
-import React from 'react'
+import React, { useState } from 'react'
 
 const DashboardWidgetContainer = ({
     title = "Leads & Vendors",
@@ -17,6 +18,8 @@ const DashboardWidgetContainer = ({
     actionText?: string;
     children?: React.ReactNode
 }) => {
+
+    const [time, setTime] = useState<'This Year' | 'Last Year' | 'Till Now'>('This Year')
     return (
         <div className="rounded border border-gray-300 bg-white  shadow-sm w-full">
             {/* Header */}
@@ -25,10 +28,21 @@ const DashboardWidgetContainer = ({
                     {title}
                 </h3>
 
-                <button className="rounded-md border border-gray-200 px-3 py-1 text-xs text-gray-600 hover:bg-gray-50">
+                {/* <button className="rounded-md border border-gray-200 px-3 py-1 text-xs text-gray-600 hover:bg-gray-50">
                     {period}
-                </button>
+                </button> */}
+                <div>
+                    <Select
+                    onChange={(value) => setTime(value as 'This Year' | 'Last Year' | 'Till Now')}
+                    options={[
+                        { label: "This Year", value: "This Year" },
+                        { label: "Last Year", value: "Last Year" },
+                        { label: "Till Now", value: "Til Now" },
+                    ]}
+                    value={time}
+                />
             </div>
+                </div>
 
             {/* Summary */}
             <div className="mb-6 flex p-3 justify-between  sm:flex-row flex-col gap-4   ">

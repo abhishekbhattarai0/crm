@@ -13,7 +13,7 @@ type InfoCardProps = {
 
 const InfoCard = ({ title, total, rate, Icon, desc, }: InfoCardProps) => {
     return (
-        <div className='border shadow-sm border-gray-100 px-4 rounded py-4 flex flex-col gap-2'>
+        <div className='border shadow-sm border-gray-100 px-4 rounded py-4 flex flex-col gap-2 bg-white/90'>
             <div className='font-medium text-gray-900' >
                 {title}
             </div>

@@ -67,7 +67,7 @@ const data = [
 export default function MultiLineChart() {
   return (
     <AreaChart
-      style={{ width: '100%', aspectRatio: 1.618, zIndex: -0, }}
+      style={{ width: '100%', aspectRatio: 1.618, zIndex:'auto' }}
       responsive
       data={data}
       margin={{

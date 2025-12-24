@@ -8,7 +8,11 @@ import { Outlet } from 'react-router'
 
 
 const PageLayout = () => {
-    const { toggleSidebarCategory, updateCategory, activeCategory } = useSidebarContext()
+    const {
+        toggleSidebarCategory,
+        updateCategory,
+        //    activeCategory 
+    } = useSidebarContext()
 
     return (
         <div className="flex h-screen">
@@ -24,7 +28,7 @@ const PageLayout = () => {
                             updateCategory(item.title)
                             toggleSidebarCategory(true)
                         }}
-                        isActive={item.title === activeCategory}
+                    // isActive={item.title === activeCategory}
                     />
                 ))}
             </Sidebar>
@@ -34,7 +38,7 @@ const PageLayout = () => {
                 <Header />
 
                 {/* Scrollable content */}
-                <main className="flex-1 overflow-auto p-4 bg-gray-100">
+                <main className="flex-1 overflow-auto pt-4 bg-gray-100">
                     <Outlet />
                 </main>
             </div>
