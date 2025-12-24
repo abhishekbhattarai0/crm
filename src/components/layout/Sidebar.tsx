@@ -4,7 +4,7 @@ import sidebarLogo from "@/assets/download.png";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/utils/cn";
 import { appsCategories, dashboardCategories } from "@/utils/constants";
-import {  NavLink, } from "react-router";
+import { NavLink, } from "react-router";
 import IconComponent from "../ui/IconComponent";
 import useScreenSize from "@/hooks/useScreenSize";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -129,9 +129,13 @@ export const CategoryItem = ({
       className={({ isActive }) =>
         cn(
           "group relative cursor-pointer rounded-md bg-sky-600/30 px-3 py-2 hover:bg-sky-600",
-          isActive && "bg-sky-800"
+          isActive && "bg-sky-800 pointer-events-none"
         )
       }
+      onClick={(e) => {
+        const isActive = window.location.pathname === link;
+        if (isActive) e.preventDefault();
+      }}
       {...props}
     >
       {({ isActive }) => (
@@ -146,6 +150,7 @@ export const CategoryItem = ({
         </>
       )}
     </NavLink>
+
   );
 };
 
@@ -218,7 +223,11 @@ export const SubCategoryItem = ({
             >
 
               <NavLink
-                onClick={() => { console.log(`/${activeCategory}/${text}/${subitem.link}`) }}
+                onClick={(e) => {
+                  console.log(`/${activeCategory}/${text}/${subitem.link}`)
+                  const isActive = window.location.pathname === `/${activeCategory}/${text}/${subitem.link}`;
+                  if (isActive) e.preventDefault();
+                }}
                 to={`/${activeCategory}/${text}/${subitem.link}`}
                 className="w-full cursor-pointer pt-1.5 pl-4 text-sm font-medium text-gray-700 hover:text-blue-600"
                 style={({ isActive }) => ({
