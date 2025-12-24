@@ -15,7 +15,7 @@ const DashboardWidgetContainer = ({
 }: {
     title?: string;
     // period?: string;
-    select: React.ReactNode;
+    select?: React.ReactNode;
     successRate?: string;
     description?: string;
     actionText?: string;
