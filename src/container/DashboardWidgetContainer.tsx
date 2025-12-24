@@ -1,25 +1,28 @@
 import Button from '@/components/ui/Button';
-import Select from '@/components/ui/Select';
+// import Select from '@/components/ui/Select';
 import { Phone } from 'lucide-react';
-import React, { useState } from 'react'
+import React from 'react'
 
 const DashboardWidgetContainer = ({
-    title = "Leads & Vendors",
-    period = "This Month",
-    successRate = "76%",
-    description = "Deals successfully closed something is better than nothing",
-    actionText = "More details",
-    children, // chart goes here
+    title,
+    // period = "This Month",
+    select,
+    successRate,
+    description,
+    actionText,
+    children, // chart goes here,
+    summary = false,
 }: {
     title?: string;
-    period?: string;
+    // period?: string;
+    select: React.ReactNode;
     successRate?: string;
     description?: string;
     actionText?: string;
-    children?: React.ReactNode
+    children?: React.ReactNode;
+    summary?: boolean
 }) => {
 
-    const [time, setTime] = useState<'This Year' | 'Last Year' | 'Till Now'>('This Year')
     return (
         <div className="rounded border border-gray-300 bg-white  shadow-sm w-full">
             {/* Header */}
@@ -32,20 +35,22 @@ const DashboardWidgetContainer = ({
                     {period}
                 </button> */}
                 <div>
-                    <Select
+                    {/* <Select
                     onChange={(value) => setTime(value as 'This Year' | 'Last Year' | 'Till Now')}
                     options={[
                         { label: "This Year", value: "This Year" },
                         { label: "Last Year", value: "Last Year" },
                         { label: "Till Now", value: "Til Now" },
                     ]}
-                    value={time}
+                    value={time} 
                 />
-            </div>
+                    */}
+                    {select && select}
                 </div>
+            </div>
 
             {/* Summary */}
-            <div className="mb-6 flex p-3 justify-between  sm:flex-row flex-col gap-4   ">
+            {summary && <div className="mb-6 flex p-3 justify-between  sm:flex-row flex-col gap-4   ">
                 <div className="flex  gap-3  ">
                     <div className="flex size-14 items-center justify-center rounded-full bg-blue-50 text-gray-600 ">
                         <Phone size={36} />
@@ -63,12 +68,12 @@ const DashboardWidgetContainer = ({
                     </div>
                 </div>
                 <div className=' flex sm:justify-end mt-4 sm:mt-0 h-8'>
-                    <Button className="bg-white text-gray-400 border border-gray-300 py-1 px-2 rounded text-xs hover:text-white hover:bg-sky-600 transition-all duration-300 active:bg-sky-700 truncate ">
+                    <Button className="bg-white text-gray-500 border border-gray-400 py-1 px-2 rounded text-xs hover:text-white hover:bg-sky-600 transition-all duration-300 active:bg-sky-700 truncate ">
                         {actionText}
                     </Button>
                 </div>
 
-            </div>
+            </div>}
 
             {/* Chart Area */}
             <div className='h-full w-full'>

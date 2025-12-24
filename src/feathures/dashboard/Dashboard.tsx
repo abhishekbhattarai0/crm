@@ -1,5 +1,5 @@
 import React from 'react'
-import TinyBarChart from './components/Chart'
+import TinyBarChart from './components/MultilineChart'
 import ChartContainer from '@/container/ChartContainer'
 
 const Dashboard = () => {

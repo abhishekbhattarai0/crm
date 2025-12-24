@@ -1,8 +1,9 @@
 import Breadcrumbs from '@/components/ui/BreadCrums';
 import InfoCard from '../components/InfoCard'
 import { analayticsCardInfo } from '@/utils/constants';
-import DashboardWidgetContainer from '@/container/DashboardWidgetContainer';
-import MultiLineChart from '../components/Chart';
+
+import DashboardMultilineChartWidget from '../components/DashboardMultilineChartWidget';
+import DashboardMultibarChartWidget from '../components/DashboardMultibarChartWidget';
 
 
 
@@ -24,21 +25,21 @@ const Analytics = () => {
 
             {/* leads and vendor card */}
             <div className='sm:flex  '>
-                <div className='m-2 w-full'>
-                    <DashboardWidgetContainer >
-                        <div className='sm:px-8 px-1'>
-                            <MultiLineChart />
-                        </div>
-                    </DashboardWidgetContainer>
+                <div className='m-2'>
+                    <DashboardMultilineChartWidget />
+
                 </div>
 
-                <div className='m-2 w-full'>
-                    <DashboardWidgetContainer >
-                        <div className='px-8'>
-                            <MultiLineChart />
-                        </div>
-                    </DashboardWidgetContainer>
+                <div className='m-2 '>
+                    <DashboardMultilineChartWidget />
+
                 </div>
+            </div>
+
+
+            <div className='m-2 bg-amber-400'>
+                {/* audience overview chart */}
+                <DashboardMultibarChartWidget />
             </div>
         </div>
     )
