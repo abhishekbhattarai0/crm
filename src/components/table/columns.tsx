@@ -1,33 +1,10 @@
 import { type ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu"
-import Button from "../ui/Button"
 import type { Contact } from "@/utils/constants"
 import IconComponent from "../ui/IconComponent"
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 
 
-// {
-//     id: 30,
-//     name: "Ryan Carter",
-//     isNew: false,
-//     avatar: "https://i.pravatar.cc/150?img=30",
-//     email: "ryan@gmail.com",
-//     phone: "+123456789",
-//     leadScore: 71,
-//     company: "Vercel",
-//     tags: ["frontend", "saas"]
-//   }
-//
 export const RowCell = ({ row, name }: { row: any, name: string }) => {
   return (
     <div >
@@ -89,49 +66,4 @@ export const columns: ColumnDef<Contact>[] = [
   },
 
 
-  // {
-  //   accessorKey: "email",
-  //     header: ({ column }) => {
-  //       return (
-  //         <Button
-  //           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //         >
-  //           Email
-  //           <ArrowUpDown className="ml-2 h-4 w-4" />
-  //         </Button>
-  //       )
-  //     },
-  // cell: ({ row }) => {
-  //   const payment = row.original
-  //
-  //   return (
-  //     <DropdownMenu>
-  //       <DropdownMenuTrigger
-  //
-  //         asChild>
-  //         <Button variant="ghost" className="h-8 w-8 p-0">
-  //           <span className="sr-only">Open menu</span>
-  //           <MoreHorizontal className="h-4 w-4" />
-  //         </Button>
-  //       </DropdownMenuTrigger>
-  //       <DropdownMenuContent align="end">
-  //         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //         <DropdownMenuItem
-  //           onClick={() => navigator.clipboard.writeText(payment.id)}
-  //         >
-  //           Copy payment ID
-  //         </DropdownMenuItem>
-  //         <DropdownMenuSeparator />
-  //         <DropdownMenuItem>View customer</DropdownMenuItem>
-  //         <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //       </DropdownMenuContent>
-  //     </DropdownMenu>
-  //   )
-  // },
-  // },
-
-  // {
-  //   accessorKey: "amount",
-  //   header: "Amount",
-  // },
 ]

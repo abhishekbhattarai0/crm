@@ -7,6 +7,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  type PaginationState,
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table"
@@ -36,6 +37,10 @@ export function DataTable<TData, TValue>({
 
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
 
   const table = useReactTable({
     data,
@@ -46,9 +51,12 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
+      pagination
     }
   })
 
@@ -94,7 +102,7 @@ export function DataTable<TData, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}
 
-                      className="border-r"
+                      className=" px-2 py-0.5 border-r"
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
@@ -116,17 +124,55 @@ export function DataTable<TData, TValue>({
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
           className={cn(
-            "p-2 rounded-md",
-            !table.getCanPreviousPage() ? 'bg-gray-700 cursor-not-allowed hover:bg-gray-700' : ''
+            "p-2 rounded-sm   text-white bg-blue-500 hover:text-gray-50",
+            !table.getCanPreviousPage() ? 'bg-gray-700 cursor-not-allowed hover:bg-gray-700 text-gray-50' : ''
           )}
+
         >
           Previous
+
         </Button>
+
+        <span className="flex items-center gap-1">
+          <div>Page</div>
+          <strong>
+            {table.getState().pagination.pageIndex + 1} of{' '}
+            {table.getPageCount().toLocaleString()}
+          </strong>
+        </span>
+        <span className="flex items-center gap-1">
+          | Go to page:
+          <input
+            type="number"
+            min="1"
+            max={table.getPageCount()}
+            defaultValue={table.getState().pagination.pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              table.setPageIndex(page)
+            }}
+            className="border p-1 rounded w-16"
+          />
+        </span>
+
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(Number(e.target.value))
+          }}
+        >
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+
         <Button
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
           className={cn(
-            "p-2 rounded-md",
+            "p-2 rounded-sm   text-white bg-blue-500 hover:text-gray-50",
             !table.getCanNextPage() ? 'bg-gray-700 cursor-not-allowed hover:bg-gray-700' : ''
           )}
         >
@@ -134,6 +180,8 @@ export function DataTable<TData, TValue>({
         </Button>
 
       </div>
+
+
     </div>
   )
 }
