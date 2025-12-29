@@ -67,16 +67,19 @@ const DashboardWidgetContainer = ({
             </p>
           </div>
         </div>
-        <div className=' flex sm:justify-end mt-4 sm:mt-0 h-8'>
-          <Button className="bg-white text-gray-500 border border-gray-400 py-1 px-2 rounded text-xs hover:text-white hover:bg-sky-600 transition-all duration-300 active:bg-sky-700 truncate ">
-            {actionText}
-          </Button>
-        </div>
+        {
+          actionText &&
+          <div className=' flex sm:justify-end mt-4 sm:mt-0 h-8'>
+            <Button className="bg-white text-gray-500 border border-gray-400 py-1 px-2 rounded text-xs hover:text-white hover:bg-sky-600 transition-all duration-300 active:bg-sky-700 truncate ">
+              {actionText}
+            </Button>
+          </div>
+        }
 
       </div>}
 
       {/* Chart Area */}
-      <div className='h-full w-full'>
+      <div className='h-full w-full '>
         {children}
       </div>
     </div>

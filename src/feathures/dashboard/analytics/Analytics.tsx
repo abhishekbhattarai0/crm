@@ -88,7 +88,7 @@ const Analytics = () => {
       {/* Bento Grid */}
       <div className="grid w-full grid-cols-12 gap-2">
         {/* Info Cards */}
-        <div className="col-span-12 lg:col-span-8">
+        <div className="col-span-12 lg:col-span-9">
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {analayticsCardInfo.map((item, idx) => (
               <InfoCard {...item} key={idx} />
@@ -97,15 +97,18 @@ const Analytics = () => {
         </div>
 
         {/* Progress Widget */}
-        <div className="col-span-12 lg:col-span-4 lg:row-span-2">
-          <DashboardProgressWidget />
+        <div className="col-span-12 lg:col-span-3 lg:row-span-2">
+          <div className="pb-2">
+
+            <DashboardProgressWidget />
+          </div>
           <DashboardActivityWidget activityData={activityCardData} />
         </div>
 
         {/* Multiline Chart */}
-        <div className="col-span-12 rounded-xl bg-white p-3 shadow-sm lg:col-span-8">
+        <div className="col-span-12 rounded-xs bg-white p-3 shadow-xs lg:col-span-9">
           <DashboardMultilineChartWidget />
-          <div className="mt-2 grid grid-cols-2 gap-2 md:grid-cols-5">
+          <div className="mt-2 grid grid-cols-3 gap-2 md:grid-cols-5">
             {cardData.map((item) => (
               <Card {...item} key={item.label} />
             ))}

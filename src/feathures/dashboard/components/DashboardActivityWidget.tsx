@@ -43,7 +43,7 @@ const ActivityCard = ({
   return (
     <div
       className={cn(
-        "flex w-full justify-between gap-3 p-1 text-xs text-gray-400",
+        "flex w-full justify-between items-center gap-3 p-1 text-xs text-gray-400",
         className,
       )}
     >
